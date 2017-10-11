@@ -84,7 +84,17 @@ class ItemModel
         }
 
         return $this->getOne($id);
-    }    
+    }
 
+    public function delete($id){
+        $query = 'DELETE FROM items WHERE ID = ' . $id;
+        $result = $this->db_connection->query($query);
 
+        if (!$result) {
+            printf("Error: %s\n", $this->db_connection->error);
+            return;
+        }
+
+        $this->_data = true;
+    }
 }
