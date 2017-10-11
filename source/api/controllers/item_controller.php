@@ -30,4 +30,22 @@ class ItemController
 
         $this->model->create($jsonPayload);
     }
+
+    public function update($id, $requestBody){
+        $jsonPayload = json_decode($requestBody);
+
+        if(!array_key_exists('name', $jsonPayload)){
+            throw new Exception('`name` should be provided!');
+        }elseif(!array_key_exists('price', $jsonPayload)){
+            throw new Exception('`price` should be provided!');
+        }
+
+        $this->model->update($id, $jsonPayload);
+    }
+
+    public function delete($id){
+        $this->model->delete($id);
+    }
+
+
 }

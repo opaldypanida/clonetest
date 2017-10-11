@@ -34,6 +34,10 @@ switch ($resource) {
             $controller->getOne($id);
         }elseif($method == 'GET'){
             $controller->getAll();
+        }elseif($method == 'PUT' && !empty($id)){
+            $controller->update($id, $requestBody);
+        }elseif($method == 'DELETE' && !empty($id)){
+            $controller->delete($id);
         }
 
         echo $view->output();
