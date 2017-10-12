@@ -34,7 +34,7 @@ function showItems(event) {
     
     hideAllSections();
 
-    var htmlContainer = document.getElementById('items_container');
+    var htmlContainer = document.getElementById('list_items_container');
     htmlContainer.innerHTML = '';
     htmlContainer.style.display = "inline-block";
 
@@ -60,12 +60,12 @@ function showItem(event, id) {
     event.preventDefault();
     
     hideAllSections();
-
+    
     var htmlContainer = document.getElementById('single_item_container');
     htmlContainer.style.display = "block";
-
     
-
+    
+    
     httpRequest('GET', 'http://localhost/api/items/' + id, undefined, function (data) {
         document.getElementById('single_item_name').innerHTML = data.name;
         document.getElementById('single_item_desc').innerHTML = data.description;
@@ -74,15 +74,50 @@ function showItem(event, id) {
 }
 
 
+function showNewItem(event) {
+    event.preventDefault();
+    
+    hideAllSections();
+
+    var htmlContainer = document.getElementById('new_item_container');
+    htmlContainer.style.display = "block";
+
+    document.getElementById("new_item_title").value = '';
+    document.getElementById("new_item_desc").value = '';
+    document.getElementById("new_item_price").value = '';
+}
+
+function createItem(event){
+    event.preventDefault();
+    
+    var title = document.getElementById("new_item_title").value;
+    var desc = document.getElementById("new_item_desc").value;
+    var price = document.getElementById("new_item_price").value;
+
+    var data = {
+        name: title,
+        description: desc,
+        price: price
+    }
+
+    httpRequest('POST', 'http://localhost/api/items/', data, function () {
+        console.log('Successful creation of new item');
+        document.getElementById("items_btn").click();
+    });
+}
+
+
 
 function hideAllSections() {
-    document.getElementById("items_container").style.display = "none";
+    document.getElementById("list_items_container").style.display = "none";
     document.getElementById("single_item_container").style.display = "none";
+    document.getElementById("new_item_container").style.display = "none";
 }
 
 
 function loaded() {
     /// Button Listeners
     document.getElementById("items_btn").addEventListener('click', showItems, false);
+    document.getElementById("new_item_btn").addEventListener('click', showNewItem, false);
     document.getElementById("items_btn").click();
 }

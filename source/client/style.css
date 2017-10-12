@@ -79,7 +79,7 @@ body{
 	padding: 10px;
 	float:left;
 }
-#items_container .title{
+#list_items_container .title{
 	font-weight: bold;
 	margin-bottom: 10px;
 	padding: 10px;
@@ -87,7 +87,7 @@ body{
 	text-align: center;
 }
 
-#items_container .description{
+#list_items_container .description{
 	font-weight: normal;
 	margin-bottom: 10px;
 	padding: 10px;
@@ -95,7 +95,7 @@ body{
 	text-align: center;
 }
 
-#items_container .price{
+#list_items_container .price{
 	font-weight: normal;
 	margin-bottom: 10px;
 	font-size: 23px;
@@ -125,6 +125,39 @@ body{
 	color: green;
 }
 
+.block{
+	float:left;
+	margin:20px;
+}
+
+.block label{
+	font-weight: bold;
+	font-size: 24px;
+	vertical-align: middle;
+}
+
+.block input, .block textarea{
+	border: 1px solid grey;
+	font-size: 24px;
+	border-radius:5px;
+	padding: 10px;
+	margin: 10px;
+	vertical-align: middle;
+}
+
+.separator{
+	clear: both;
+}
+
+button.create{
+	margin: 20px;
+	padding: 20px;
+	font-size: 24px;
+	font-weight: bold;
+	background: rgb(144, 255, 144);
+	border: 2px solid green;
+	border-radius:15px;
+}
 
 #footer{
 	border-bottom: 1px #ccc solid;

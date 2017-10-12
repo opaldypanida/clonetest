@@ -14,14 +14,24 @@
 			<ul>
 				<li><a href="./">Home</a></li>
 				<li><a href="./items" id="items_btn">Items</a></li>
+				<li><a href="./items" id="new_item_btn">New Item</a></li>
 			</ul>	
 		</div>
 		<div id="content">
-			<div id="items_container"></div>
+			<div id="list_items_container"></div>
 			<div id="single_item_container">
 				<div id="single_item_name"></div>
 				<div id="single_item_desc"></div>
 				<div id="single_item_price"></div>
+			</div>
+			<div id="new_item_container">
+				<div class="block"><label>Title:</label><input type="text" id="new_item_title"/></div>
+				<div class="separator"></div>
+				<div class="block"><label>Desc:</label><textarea rows="5" cols="50" id="new_item_desc"></textarea></div>
+				<div class="separator"></div>
+				<div class="block"><label>Price:</label><input type="text" id="new_item_price"/></div>
+				<div class="separator"></div>
+				<button class="create" onclick="createItem(event)">Create</button>
 			</div>
 		</div>
 		<div id="footer">
