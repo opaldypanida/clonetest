@@ -7,7 +7,7 @@ $resource =  $pathParts[1];
 $id = $pathParts[2];
 
 $method = $_SERVER['REQUEST_METHOD'];
-$requestBody = file_get_contents('php://input');
+$requestBody = json_decode(file_get_contents('php://input'));
 
 
 // 
@@ -21,13 +21,13 @@ if ($mysqli->connect_errno) {
     exit;
 }
 
-
-switch ($resource) {
-    case 'items':
+try{
+    switch ($resource) {
+        case 'items':
         $model = new ItemModel($mysqli);
         $view = new ItemView($model);
         $controller = new ItemController($model);
-
+        
         if($method == 'POST'){
             $controller->create($requestBody);
         }elseif($method == 'GET' && !empty($id)){
@@ -39,10 +39,15 @@ switch ($resource) {
         }elseif($method == 'DELETE' && !empty($id)){
             $controller->delete($id);
         }
-
+        
         echo $view->output();
         break;
-    
-    default:
+        
+        default:
         break;
+    }
+}catch(Exception $e){
+    http_response_code($e->getCode());
+    echo $e->getMessage();
 }
+    
