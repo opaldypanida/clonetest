@@ -42,6 +42,18 @@ try{
         
         echo $view->output();
         break;
+
+        case 'categories':
+        $model = new CategoryModel($mysqli);
+        $view = new CategoryView($model);
+        $controller = new CategoryController($model);
+
+        if($method == 'POST'){
+            $controller->create($requestBody);
+        }
+        
+        echo $view->output();
+        break;
         
         default:
         break;

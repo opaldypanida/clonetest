@@ -29,20 +29,24 @@ function httpRequest(method, url, payload, callback) {
     httpRequest.send(payload);
 }
 
-function getItemsClick(event) {
+function showItems(event) {
+    event.preventDefault();
+    
+    hideAllSections();
+
     var htmlContainer = document.getElementById('items_container');
     htmlContainer.innerHTML = '';
+    htmlContainer.style.display = "inline-block";
 
-    event.preventDefault();
-    hideAllSections();
+    
 
     httpRequest('GET', 'http://localhost/api/items', undefined, function (data) {
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
             htmlContainer.innerHTML += 
-                `<div class="itemBox">
+                `<div class="item_box">
                     
-                    <div class="title">${item["name"]}</div>
+                    <div class="title"><a href="#" onclick="showItem(event, ${item['id']})">${item["name"]}</a></div>
                     <div class="description">${item["description"]}</div>
                     <div class="price">$${item["price"]}</div>
                 
@@ -52,19 +56,33 @@ function getItemsClick(event) {
 
 }
 
-function getItem(id) {
+function showItem(event, id) {
+    event.preventDefault();
+    
+    hideAllSections();
 
+    var htmlContainer = document.getElementById('single_item_container');
+    htmlContainer.style.display = "block";
+
+    
+
+    httpRequest('GET', 'http://localhost/api/items/' + id, undefined, function (data) {
+        document.getElementById('single_item_name').innerHTML = data.name;
+        document.getElementById('single_item_desc').innerHTML = data.description;
+        document.getElementById('single_item_price').innerHTML = '$' + data.price;
+    });
 }
 
 
 
 function hideAllSections() {
-
+    document.getElementById("items_container").style.display = "none";
+    document.getElementById("single_item_container").style.display = "none";
 }
 
 
 function loaded() {
     /// Button Listeners
-    document.getElementById("items_btn").addEventListener('click', getItemsClick, false);
+    document.getElementById("items_btn").addEventListener('click', showItems, false);
     document.getElementById("items_btn").click();
 }
