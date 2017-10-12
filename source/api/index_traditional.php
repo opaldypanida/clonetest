@@ -5,11 +5,10 @@ require_once __DIR__.'/loader.php';
 $pathParts = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
 $resource =  $pathParts[1]; 
 $id = $pathParts[2];
+$action = $_GET['action'];
 
 $method = $_SERVER['REQUEST_METHOD'];
-
-var_dump($_POST);
-$requestBody = json_decode(file_get_contents('php://input'));
+$requestBody = $_POST;
 
 
 // 
@@ -32,17 +31,16 @@ try{
         
         if($method == 'POST'){
             $controller->create($requestBody);
+            header("Location: http://localhost/api/items");
+        }elseif($method == 'GET' && $action == 'new'){
+            echo $view->createNew();
         }elseif($method == 'GET' && !empty($id)){
             $controller->getOne($id);
         }elseif($method == 'GET'){
             $controller->getAll();
-        }elseif($method == 'PUT' && !empty($id)){
-            $controller->update($id, $requestBody);
-        }elseif($method == 'DELETE' && !empty($id)){
-            $controller->delete($id);
+            echo $view->showAll();
         }
         
-        echo $view->output();
         break;
 
         case 'categories':
@@ -53,7 +51,7 @@ try{
         if($method == 'POST'){
             $controller->create($requestBody);
         }
-
+        
         echo $view->output();
         break;
         
