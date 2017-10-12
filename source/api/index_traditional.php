@@ -29,9 +29,14 @@ try{
         $view = new ItemView($model);
         $controller = new ItemController($model);
         
-        if($method == 'POST'){
+        // Update is when user is POSTing to /items/:ID
+        if($method == 'POST' && !empty($id)){
+            
+        // Create a new entry is when POST to /items/
+        }elseif($method == 'POST' && empty($id)){
             $controller->create($requestBody);
             header("Location: http://localhost/api/items");
+
         }elseif($method == 'GET' && $action == 'new'){
             echo $view->createNew();
         }elseif($method == 'GET' && !empty($id)){
